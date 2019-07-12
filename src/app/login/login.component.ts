@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 		this.afAuth.auth.onAuthStateChanged(function(user) {
 		  if (user) {
 			
-			self.user=user;
+			self.router.navigate(['/main']);
 			
 		  } else {
 			// No user is signed in.
@@ -84,12 +84,6 @@ export class LoginComponent implements OnInit {
 		
 	}
 	
-	signOut() {
-		this.afAuth.auth.signOut().then(function() {
-		  alert("signed out");
-		}).catch(function(error) {
-		  alert(error.message);
-		});
-	}
+	
 
 }

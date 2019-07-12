@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mainpage',
@@ -26,7 +27,7 @@ export class MainpageComponent implements OnInit {
 	};
 	storedAnnotations;
 	
-  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore){}
+  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router){}
 	
   ngOnInit() {
 	var self = this;
@@ -41,7 +42,7 @@ export class MainpageComponent implements OnInit {
 			
 		  } else {
 			// No user is signed in.
-			alert("please log in first");
+			self.router.navigate(['/login']);
 		  }
 		});
   }
@@ -139,7 +140,7 @@ export class MainpageComponent implements OnInit {
 		
 		//check if the selection is valid, i.e. must not overlap with an existing selection
 		var validSelection = true;
-		this.savedAnnotations.forEach(function(annot) {
+		this.storedAnnotations.forEach(function(annot) {
 				if((annot.end > self.activeSelection.start && annot.end <= self.activeSelection.end) ||
 				   (annot.start >= self.activeSelection.start && annot.start < self.activeSelection.end)){
 					self.activeSelection = {}
@@ -233,5 +234,12 @@ export class MainpageComponent implements OnInit {
 	  this.activeTag = currentTag;
 	  this.renderHighlightedText(this.storedAnnotations);
   }
+  
+  signOut() {
+		this.afAuth.auth.signOut()
+		.catch(function(error) {
+		  alert(error.message);
+		});
+	}
 
 }
