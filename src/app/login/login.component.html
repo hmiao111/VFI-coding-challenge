@@ -1,0 +1,8 @@
+<div>{{mode}}</div>
+<div>username:<input [(ngModel)] ='username'></div>
+<div>password:<input [(ngModel)] ='password' type="password"></div>
+<button (click)="signInOrUp()">{{mode}}</button>
+<div>
+	<a [routerLink]="" (click)="changeMode()">sign up</a>
+</div>
+<button (click)="signOut()">Sign Out</button>

@@ -1,0 +1,38 @@
+<div>
+	<div><h1>Instructions:</h1></div>
+	<div>
+		<ul>
+			<li>To add a new annotation: select a block of text, enter the note and tags, and press "annotate". Multiple tags can be inputted with a comma separator.</li>
+			<li>Mousing over an annotation will reveal the note.</li>
+			<li>Clicking on a tag will highlight any annotations containing that tag in orange.</li>
+		</ul>
+	</div>
+	<div><h2>Known Deficiencies:</h2></div>
+	<div>
+		<ul>
+			<li>You can't make 2 overlapping highlights</li>
+			<li>You can't delete highlights once they've been saved</li>
+		</ul>
+	</div>
+</div>
+<!--Main text area-->
+<h1>Main Text: </h1>
+<div id="mainText" (mouseup)="highlightActive()" #mainText>
+</div>
+<!--/Main text area-->
+
+<!--input field for adding new annotations-->
+<div *ngIf="showInputDialog">
+	comment: <input id="inputBox" #inputBox>
+	tags: <input id="tagsInput" #tagsInput>
+	<button (click)="saveActiveHighlight()">save annotation</button>
+</div>
+<!--/input field-->
+
+<!--list of tags-->
+<div>
+	<div><h1>Tags</h1></div>
+	<span class="tag" *ngFor="let tag of allTags" (click)="filterByTag(tag)">{{tag.name}}</span>
+</div>
+<!--/list of tags-->
+<br/><br/>
